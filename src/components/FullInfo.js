@@ -7,8 +7,6 @@ export default function FullInfo({ route }) {
       <Image
         style={styles.image}
         source={{
-          height: 100,
-          width: 100,
           uri: route.params.img,
         }}
       />
@@ -19,5 +17,5 @@ export default function FullInfo({ route }) {
 }
 
 const styles = StyleSheet.create({
-  image: { alignSelf: "center" },
+  image: { alignSelf: "center", height: 100, width: 100 },
 });

@@ -23,7 +23,7 @@ export default function Navigate() {
             headerTitleStyle: {
               color: "#FFF",
               fontSize: 16,
-              fontWeight: "bold",
+              fontWeight: "400",
             },
           }}
         />
@@ -39,7 +39,7 @@ export default function Navigate() {
             headerTitleStyle: {
               color: "#FFF",
               fontSize: 16,
-              fontWeight: "bold",
+              fontWeight: "400",
             },
           }}
         />

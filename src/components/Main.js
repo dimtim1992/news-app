@@ -6,13 +6,18 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  Modal,
 } from "react-native";
 import { gStyle } from "../styles/style";
+import { Ionicons } from "@expo/vector-icons";
+import Form from "./Form";
 
 export default function Main({ navigation }) {
   function loadScene() {
     navigation.navigate("Contacts");
   }
+
+  const [modalWindow, setModalWindow] = useState(false);
 
   const [news, setNews] = useState([
     {
@@ -38,9 +43,38 @@ export default function Main({ navigation }) {
     },
   ]);
 
+  function addArticle(article) {
+    setNews((list) => {
+      article.key = Math.random().toString();
+      return [article, ...list];
+    });
+
+    setModalWindow(false);
+  }
+
   return (
     <View style={gStyle.container}>
       {/* <Text style={gStyle.title}>Main</Text> */}
+      <Modal visible={modalWindow}>
+        <View style={[gStyle.container.flex, styles.container]}>
+          <Ionicons
+            name="close"
+            size={24}
+            color="#FFF"
+            style={styles.iconClose}
+            onPress={() => setModalWindow(false)}
+          />
+          <Text style={styles.title}>Modal</Text>
+          <Form addArticle={addArticle} />
+        </View>
+      </Modal>
+      <Ionicons
+        name="add"
+        size={24}
+        color="#FFF"
+        style={styles.icon}
+        onPress={() => setModalWindow(true)}
+      />
       <FlatList
         data={news}
         renderItem={({ item }) => (
@@ -51,8 +85,6 @@ export default function Main({ navigation }) {
             <Image
               style={styles.image}
               source={{
-                height: 100,
-                width: 100,
                 uri: item.img,
               }}
             />
@@ -66,6 +98,21 @@ export default function Main({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#000",
+    color: "#FFF",
+    textAlign: "center",
+  },
+  icon: {
+    textAlign: "center",
+    backgroundColor: "#000",
+    marginBottom: 2,
+  },
+  iconClose: {
+    textAlign: "center",
+    marginBottom: 2,
+    marginTop: 20,
+  },
   item: {
     backgroundColor: "#000",
     margin: 1,
@@ -73,6 +120,8 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: "center",
+    height: 100,
+    width: 100,
   },
   title: {
     color: "#FFF",
